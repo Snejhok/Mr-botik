@@ -342,6 +342,6 @@ async def on_button_click(interaction: disnake.MessageInteraction):
     if interaction.component.label == "Delete":
         await interaction.message.delete()
                
-bot.run('MTA5Njg0MDUwNTcwMDEzMDgxNw.GQ35L6.bt2PcfwuS2oxybaEiaLGtnUReY7gjGudWT-8iA')
+bot.run('Token')
 
 
