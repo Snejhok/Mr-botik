@@ -3,13 +3,14 @@ import disnake
 from disnake.ext import commands
 import random
 import asyncio
-import requests
+import requests ##эта хуета часто отлетает, хз почему
 intents = disnake.Intents.default()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix='Мистер, ', intents=intents)
 user_ranks = {}
 
+## похуй похуй мне, работает, значит нормально
 ranks = ["```bash\n#Podpivas [Common]\n```","```bash\n#Podpivas [Common]\n```","```bash\n#Podpivas [Common]\n```","```bash\n#Podpivas [Common]\n```","```bash\n#Podpivas [Common]\n```","```bash\n#Podpivas [Common]\n```","```bash\n#Podpivas [Common]\n```","```bash\n#Podpivas [Common]\n```","```bash\n#Podpivas [Common]\n```","```bash\n#Podpivas [Common]\n```","```bash\n#Podpivas [Common]\n```","```bash\n#Podpivas [Common]\n```","```bash\n#Podpivas [Common]\n```",
          '```bash\n#Strigalo [Common]\n```','```bash\n#Strigalo [Common]\n```','```bash\n#Strigalo [Common]\n```','```bash\n#Strigalo [Common]\n```','```bash\n#Strigalo [Common]\n```','```bash\n#Strigalo [Common]\n```','```bash\n#Strigalo [Common]\n```','```bash\n#Strigalo [Common]\n```','```bash\n#Strigalo [Common]\n```','```bash\n#Strigalo [Common]\n```','```bash\n#Strigalo [Common]\n```','```bash\n#Strigalo [Common]\n```','```bash\n#Strigalo [Common]\n```',
          '```bash\n#Mc Borov [Common]\n```','```bash\n#Mc Borov [Common]\n```','```bash\n#Mc Borov [Common]\n```','```bash\n#Mc Borov [Common]\n```','```bash\n#Mc Borov [Common]\n```','```bash\n#Mc Borov [Common]\n```','```bash\n#Mc Borov [Common]\n```','```bash\n#Mc Borov [Common]\n```','```bash\n#Mc Borov [Common]\n```','```bash\n#Mc Borov [Common]\n```','```bash\n#Mc Borov [Common]\n```','```bash\n#Mc Borov [Common]\n```','```bash\n#Mc Borov [Common]\n```',
@@ -130,25 +131,24 @@ async def сколько(ctx):
 
 @bot.command()
 async def зайди(ctx):
-    # Проверяем, что пользователь находится в голосовом канале
+
     if ctx.author.voice is None:
         await ctx.send('Зайди в голосовой канал, гнида, я не могу подключиться.')
     else:
-        # Подключаемся к голосовому каналу пользователя
         voice_channel = ctx.author.voice.channel
         await voice_channel.connect()
 
 @bot.command()
 async def выйди(ctx):
-    # Проверяем, что бот находится в голосовом канале
+
     if ctx.voice_client is not None:
-        # Отключаем бота от голосового канала
         await ctx.voice_client.disconnect()
+
     else:
         await ctx.send('Я не в войсе, еблан')
 
 @bot.command()
-async def лох(ctx):
+async def лох(ctx): ## Не работает, ну оно и видно кста. Зато бот сам себя подъебывает
     await ctx.message.delete()
     server = ctx.guild
     all_members = ctx.guild.members
@@ -210,7 +210,7 @@ def get_random_anime_image():
     else:
         return None
 
-def get_random_anime_quote():
+def get_random_anime_quote(): ## мб подрублю перевод
     response = requests.get('https://animechan.vercel.app/api/random')
     if response.status_code == 200:
         data = response.json()
@@ -275,7 +275,7 @@ word_list = ['3bu1a','Ебула','Снежок','Кендоку рамен','С
 async def шафлгейм(ctx):
     word = random.choice(word_list)
     shuffled_word = ''.join(random.sample(word, len(word)))
-    await ctx.send(f'Слово: {shuffled_word}, у тебя есть 30 секунд что бы отгадать')
+    await ctx.send(f'Слово - {shuffled_word}\nУ тебя есть 30 секунд что бы отгадать')
     def check(message):
         return message.author == ctx.author and message.channel == ctx.channel
     try:
