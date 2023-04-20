@@ -45,6 +45,8 @@ ranks_file = 'ranks.txt'
 
 queue = []
 
+#вот эта хуйня кривая
+
 @bot.slash_command(name="play", description="Включи музыку с ютуба")
 async def play(ctx, url: str):
     try:
@@ -75,28 +77,29 @@ async def play(ctx, url: str):
     except Exception as e:
         await print(e)
 
-
+# ваще не работает
 @bot.slash_command(name="stop", description="Останови воспроизведение")
 async def stop(ctx):
     voice = disnake.utils.get(bot.voice_clients, guild=ctx.guild)
     if voice and voice.is_playing():
         voice.stop()
         await ctx.send('Стоп.')
-
-
-@bot.slash_command(name="pause", description="Пауза...")
+# Работают, но нужно переделать их в / команды
+# --------------
+@bot.command()
 async def pause(ctx):
     voice_client = ctx.voice_client
     if voice_client and voice_client.is_playing():
         voice_client.pause()
     await ctx.send("Окей, мы на паузе")
 
-@bot.slash_command(name="resume", description="Убери паузу")
+@bot.command()
 async def resume(ctx):
     voice_client = ctx.voice_client
     if voice_client and voice_client.is_paused():
         voice_client.resume()
     await ctx.send("ЕЕЕЕЙ, продолжаем!!")
+#--------------
 
 @bot.event
 async def on_ready():
@@ -123,7 +126,7 @@ async def rank(ctx):
         
     await ctx.send(f'{ctx.author.mention}, Такс... ты у нас: {rank}',view=view)
 
-
+# работает, но при перезапуске бота забивает хуй на txt файл и записывает все по новой
 def load_user_ranks_from_file(ranks_file):
     user_ranks = {}
     try:
