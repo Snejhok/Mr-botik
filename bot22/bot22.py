@@ -45,7 +45,9 @@ ranks_file = 'ranks.txt'
 
 queue = []
 
-#вот эта хуйня кривая
+#вот эта хуйня кривая 
+#WARNING: [youtube] h9ASI05rQ3Q: nsig extraction failed: You may experience throttling for some formats
+#ебанный yt_dlt
 
 @bot.slash_command(name="play", description="Включи музыку с ютуба")
 async def play(ctx, url: str):
